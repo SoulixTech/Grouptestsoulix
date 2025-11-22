@@ -1,6 +1,14 @@
 import './globals.css'
 import { AuthProvider } from '../contexts/AuthContext'
 import { SyncProvider } from '../contexts/SyncContext'
+import { scan } from 'react-scan'
+
+if (typeof window !== 'undefined') {
+    scan({
+        enabled: true,
+        log: true,
+    })
+}
 
 export const metadata = {
     title: 'Group Expense Tracker - Split Bills Smart',

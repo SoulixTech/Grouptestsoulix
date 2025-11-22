@@ -13,18 +13,19 @@
     "@supabase/supabase-js": "^2.39.0",
     "chart.js": "^4.4.0",
     "expo-secure-store": "^15.0.7",
-    "million": "^3.0.0",
     "next": "^16.0.3",
     "react": "^19.2.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^19.2.0",
-    "react-scan": "^0.4.3"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@million/lint": "^0.0.39",
     "autoprefixer": "^10",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.3",
+    "million": "^3.1.11",
     "postcss": "^8",
+    "react-scan": "^0.4.3",
     "tailwindcss": "^3.4.1"
   }
 }
