@@ -2,15 +2,11 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from '../contexts/AuthContext';
 
 // Screens
-import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import ExpensesScreen from '../screens/ExpensesScreen';
-import AddExpenseScreen from '../screens/AddExpenseScreen';
 import MembersScreen from '../screens/MembersScreen';
-import PaymentsScreen from '../screens/PaymentsScreen';
 import SettlementsScreen from '../screens/SettlementsScreen';
 
 const Stack = createStackNavigator();
@@ -54,41 +50,9 @@ function MainTabs() {
 }
 
 export default function AppNavigator() {
-  const { isAdmin, isLoading } = useAuth();
-
-  if (isLoading) {
-    return null; // Or a loading screen
-  }
-
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {!isAdmin ? (
-        <Stack.Screen name="Login" component={LoginScreen} />
-      ) : (
-        <>
-          <Stack.Screen name="Main" component={MainTabs} />
-          <Stack.Screen 
-            name="AddExpense" 
-            component={AddExpenseScreen}
-            options={{ 
-              headerShown: true,
-              title: 'Add Expense',
-              headerStyle: { backgroundColor: '#6366f1' },
-              headerTintColor: '#fff',
-            }}
-          />
-          <Stack.Screen 
-            name="Payments" 
-            component={PaymentsScreen}
-            options={{ 
-              headerShown: true,
-              title: 'Record Payment',
-              headerStyle: { backgroundColor: '#6366f1' },
-              headerTintColor: '#fff',
-            }}
-          />
-        </>
-      )}
+      <Stack.Screen name="Main" component={MainTabs} />
     </Stack.Navigator>
   );
 }
