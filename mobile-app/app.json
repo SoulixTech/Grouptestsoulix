@@ -4,13 +4,7 @@
     "slug": "splitwise-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#667eea"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -19,19 +13,17 @@
       "bundleIdentifier": "com.soulixgroup.splitwise"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#667eea"
-      },
       "package": "com.soulixgroup.splitwise"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       [
         "expo-secure-store"
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f144ffc4-165c-4126-b5a6-31aaa00f75ed"
+      }
+    }
   }
 }
