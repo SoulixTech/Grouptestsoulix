@@ -5,6 +5,10 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#6366f1",
+      "resizeMode": "contain"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -13,7 +17,10 @@
       "bundleIdentifier": "com.soulixgroup.splitwise"
     },
     "android": {
-      "package": "com.soulixgroup.splitwise"
+      "package": "com.soulixgroup.splitwise",
+      "adaptiveIcon": {
+        "backgroundColor": "#6366f1"
+      }
     },
     "plugins": [
       [
