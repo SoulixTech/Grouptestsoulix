@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SplitWise",
-    "slug": "splitwise-mobile",
+    "name": "BillBuddy",
+    "slug": "billbuddy-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -14,10 +14,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.soulixgroup.splitwise"
+      "bundleIdentifier": "com.soulixgroup.billbuddy"
     },
     "android": {
-      "package": "com.soulixgroup.splitwise",
+      "package": "com.soulixgroup.billbuddy",
       "adaptiveIcon": {
         "backgroundColor": "#6366f1"
       }

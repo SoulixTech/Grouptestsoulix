@@ -48,7 +48,7 @@ export default function LoginScreen() {
           {/* Logo */}
           <View style={styles.logoContainer}>
             <Text style={styles.logoIcon}>💰</Text>
-            <Text style={styles.logoText}>SplitWise</Text>
+            <Text style={styles.logoText}>BillBuddy</Text>
             <Text style={styles.subtitle}>Expense Tracker</Text>
           </View>
 

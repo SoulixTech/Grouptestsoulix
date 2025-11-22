@@ -142,7 +142,7 @@ export default function Sidebar() {
                     <div className="logo">
                         <div className="logo-icon">💰</div>
                         <div className="logo-text">
-                            <h2>SplitWise</h2>
+                            <h2>BillBuddy</h2>
                             <p>Expense Tracker</p>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
-# SplitWise Mobile App
+# BillBuddy Mobile App
 
-React Native mobile application for the SplitWise Expense Tracker.
+React Native mobile application for the BillBuddy Expense Tracker.
 
 ## Setup Instructions
 
