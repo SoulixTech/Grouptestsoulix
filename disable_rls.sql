@@ -1,0 +1,4 @@
+-- Disable RLS on all tables to allow public access
+ALTER TABLE members DISABLE ROW LEVEL SECURITY;
+ALTER TABLE expenses DISABLE ROW LEVEL SECURITY;
+ALTER TABLE payments DISABLE ROW LEVEL SECURITY;

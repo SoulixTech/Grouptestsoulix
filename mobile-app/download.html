@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download SplitWise Mobile App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #1e293b;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .version {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .info-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .info-item::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .alert {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+            color: #92400e;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #78350f;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .web-access {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ede9fe;
+            border-radius: 10px;
+        }
+
+        .web-access a {
+            color: #5b21b6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .web-access a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .download-btn {
+                width: 100%;
+                padding: 14px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">💰</div>
+        <h1>SplitWise Mobile</h1>
+        <p class="subtitle">Expense Tracker & Splitter</p>
+        
+        <span class="version">Version 1.0.0</span>
+
+        <!-- Download Button -->
+        <div style="margin-top: 20px;">
+            <a href="splitwise-mobile-v1.0.0.apk" class="download-btn" download>
+                <span class="icon">📥</span>
+                Download APK (Android)
+            </a>
+        </div>
+
+        <!-- Installation Instructions -->
+        <div class="info-box">
+            <div class="info-title">📋 Installation Steps:</div>
+            <div class="info-item">Download the APK file</div>
+            <div class="info-item">Open the downloaded file</div>
+            <div class="info-item">Allow "Install from Unknown Sources" if prompted</div>
+            <div class="info-item">Tap "Install" and wait for completion</div>
+            <div class="info-item">Open the app and login with admin credentials</div>
+        </div>
+
+        <!-- Security Warning -->
+        <div class="alert">
+            <strong>⚠️ Security Notice</strong>
+            Enable "Install from Unknown Sources" in your Android settings to install this APK. This is normal for apps downloaded outside the Play Store.
+        </div>
+
+        <!-- Web Access -->
+        <div class="web-access">
+            <strong>🌐 Prefer Web Version?</strong><br>
+            Access the web app at: <a href="https://your-web-app.vercel.app" target="_blank">your-web-app.vercel.app</a>
+        </div>
+
+        <!-- Features -->
+        <div class="info-box" style="margin-top: 20px;">
+            <div class="info-title">✨ Features:</div>
+            <div class="info-item">Track expenses and split bills</div>
+            <div class="info-item">Add and manage group members</div>
+            <div class="info-item">Record payments and settlements</div>
+            <div class="info-item">View detailed balance reports</div>
+            <div class="info-item">Beautiful and intuitive interface</div>
+        </div>
+
+        <div class="footer">
+            © 2025 SoulixGroup • All Rights Reserved
+        </div>
+    </div>
+</body>
+</html>
