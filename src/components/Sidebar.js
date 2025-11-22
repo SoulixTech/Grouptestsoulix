@@ -140,7 +140,7 @@ export default function Sidebar() {
             <nav className={`sidebar ${isOpen ? 'active' : ''}`}>
                 <div className="sidebar-header">
                     <div className="logo">
-                        <div className="logo-icon">💰</div>
+                        <img src="/billbuddy-logo.png" alt="BillBuddy" className="logo-icon-img" />
                         <div className="logo-text">
                             <h2>BillBuddy</h2>
                             <p>Expense Tracker</p>

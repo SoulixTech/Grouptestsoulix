@@ -88,6 +88,13 @@ body {
     box-shadow: var(--shadow);
 }
 
+.logo-icon-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
 .logo-text h2 {
     font-size: 1.3rem;
     font-weight: 700;
