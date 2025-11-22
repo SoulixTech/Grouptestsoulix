@@ -238,7 +238,12 @@ export default function MembersScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <LinearGradient colors={['#6366f1', '#764ba2']} style={styles.header}>
+      <LinearGradient 
+        colors={['#6366f1', '#8b5cf6']} 
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.header}
+      >
         <Text style={styles.headerTitle}>Members</Text>
         <Text style={styles.headerSubtitle}>
           {members.length} member{members.length !== 1 ? 's' : ''} in the group
@@ -343,15 +348,17 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   memberCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    backgroundColor: '#ffffff',
+    borderRadius: 14,
+    padding: 18,
+    marginBottom: 14,
+    shadowColor: '#6366f1',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
   },
   memberHeader: {
     flexDirection: 'row',
