@@ -270,12 +270,44 @@ export default function ExpensesPage() {
                                         key={expense.id}
                                         className="expense-item"
                                         onClick={() => openDetailModal(expense)}
-                                        style={{ cursor: 'pointer' }}
+                                        style={{ 
+                                            cursor: 'pointer',
+                                            borderLeft: expense.is_expensive ? '5px solid #ff6b6b' : expense.category === 'Reimbursement' ? '5px solid #667eea' : '4px solid #e0e0e0',
+                                            background: expense.is_expensive ? 'linear-gradient(135deg, #fff5f5 0%, #ffffff 100%)' : 'white'
+                                        }}
                                     >
                                         <div className="expense-header">
                                             <div className="expense-main-info">
                                                 <div>
-                                                    <span className="expense-title">{expense.description}</span>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                                        <span className="expense-title">{expense.description}</span>
+                                                        {expense.is_expensive && (
+                                                            <span style={{
+                                                                background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)',
+                                                                color: 'white',
+                                                                padding: '0.2rem 0.6rem',
+                                                                borderRadius: '12px',
+                                                                fontSize: '0.7rem',
+                                                                fontWeight: '700',
+                                                                boxShadow: '0 2px 8px rgba(255, 107, 107, 0.3)'
+                                                            }}>
+                                                                💰 EXPENSIVE
+                                                            </span>
+                                                        )}
+                                                        {expense.category === 'Reimbursement' && (
+                                                            <span style={{
+                                                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                                color: 'white',
+                                                                padding: '0.2rem 0.6rem',
+                                                                borderRadius: '12px',
+                                                                fontSize: '0.7rem',
+                                                                fontWeight: '700',
+                                                                boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
+                                                            }}>
+                                                                💰 REIMBURSEMENT
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                     <span className="expense-category">{expense.category}</span>
                                                 </div>
                                                 <div className="expense-details">
@@ -290,7 +322,7 @@ export default function ExpensesPage() {
                                                         <strong>💳 Paid by:</strong> {expense.paid_by}
                                                     </div>
                                                     <div className="expense-detail">
-                                                        <strong>👥 Split:</strong> {expense.involved?.length || 0} people
+                                                        <strong>👥 {expense.category === 'Reimbursement' ? 'Owes full amount:' : 'Split:'}</strong> {expense.involved?.length || 0} {expense.category === 'Reimbursement' ? 'person' : 'people'}
                                                     </div>
                                                 </div>
                                             </div>

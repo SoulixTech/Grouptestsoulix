@@ -18,7 +18,9 @@ export default function PaymentsPage() {
         from: '',
         to: '',
         amount: '',
-        note: ''
+        note: '',
+        category: '',
+        isExpensive: false
     })
 
     useEffect(() => {
@@ -67,7 +69,9 @@ export default function PaymentsPage() {
                         from_user: formData.from,
                         to_user: formData.to,
                         amount: parseFloat(formData.amount),
-                        note: formData.note || null
+                        note: formData.note || null,
+                        category: formData.category || null,
+                        is_expensive: formData.isExpensive || false
                     })
                     .eq('id', editingPayment.id)
                     .select()
@@ -78,7 +82,7 @@ export default function PaymentsPage() {
                     setPayments(payments.map(p => p.id === editingPayment.id ? data[0] : p))
                     setShowForm(false)
                     setEditingPayment(null)
-                    setFormData({ from: '', to: '', amount: '', note: '' })
+                    setFormData({ from: '', to: '', amount: '', note: '', category: '', isExpensive: false })
                     alert('Payment updated successfully!')
                 }
             } else {
@@ -90,6 +94,8 @@ export default function PaymentsPage() {
                         to_user: formData.to,
                         amount: parseFloat(formData.amount),
                         note: formData.note || null,
+                        category: formData.category || null,
+                        is_expensive: formData.isExpensive || false,
                         date: new Date().toISOString()
                     }])
                     .select()
@@ -99,13 +105,19 @@ export default function PaymentsPage() {
                 if (data) {
                     setPayments([data[0], ...payments])
                     setShowForm(false)
-                    setFormData({ from: '', to: '', amount: '', note: '' })
+                    setFormData({ from: '', to: '', amount: '', note: '', category: '', isExpensive: false })
                     alert('Payment recorded successfully!')
                 }
             }
         } catch (error) {
             console.error('Error recording payment:', error)
-            alert('Error recording payment')
+            console.error('Error details:', {
+                message: error.message,
+                details: error.details,
+                hint: error.hint,
+                code: error.code
+            })
+            alert(`Error recording payment: ${error.message || 'Unknown error'}`)
         }
     }
 
@@ -115,7 +127,9 @@ export default function PaymentsPage() {
             from: payment.from_user,
             to: payment.to_user,
             amount: payment.amount.toString(),
-            note: payment.note || ''
+            note: payment.note || '',
+            category: payment.category || '',
+            isExpensive: payment.is_expensive || false
         })
         setShowForm(true)
     }
@@ -123,7 +137,7 @@ export default function PaymentsPage() {
     const handleCancelEdit = () => {
         setShowForm(false)
         setEditingPayment(null)
-        setFormData({ from: '', to: '', amount: '', note: '' })
+        setFormData({ from: '', to: '', amount: '', note: '', category: '', isExpensive: false })
     }
 
     const handleDelete = async (paymentId) => {
@@ -235,6 +249,28 @@ export default function PaymentsPage() {
                                             </div>
                                         </div>
                                         <div className="form-group">
+                                            <label>Category (What for?)</label>
+                                            <select
+                                                value={formData.category}
+                                                onChange={e => setFormData({ ...formData, category: e.target.value })}
+                                            >
+                                                <option value="">Select Category</option>
+                                                <option value="Reimbursement">💰 Reimbursement (Paid on behalf)</option>
+                                                <option value="Event Ticket">🎫 Event Ticket</option>
+                                                <option value="Bus Ticket">🚌 Bus Ticket</option>
+                                                <option value="Train Ticket">🚂 Train Ticket</option>
+                                                <option value="Flight Ticket">✈️ Flight Ticket</option>
+                                                <option value="Food">🍔 Food</option>
+                                                <option value="Groceries">🛒 Groceries</option>
+                                                <option value="Rent">🏠 Rent</option>
+                                                <option value="Utilities">💡 Utilities</option>
+                                                <option value="Entertainment">🎬 Entertainment</option>
+                                                <option value="Shopping">🛍️ Shopping</option>
+                                                <option value="Medical">💊 Medical</option>
+                                                <option value="Other">📝 Other</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
                                             <label>Note (Optional)</label>
                                             <input
                                                 type="text"
@@ -242,6 +278,16 @@ export default function PaymentsPage() {
                                                 value={formData.note}
                                                 onChange={e => setFormData({ ...formData, note: e.target.value })}
                                             />
+                                        </div>
+                                        <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                            <input
+                                                type="checkbox"
+                                                id="isExpensive"
+                                                checked={formData.isExpensive}
+                                                onChange={e => setFormData({ ...formData, isExpensive: e.target.checked })}
+                                                style={{ width: 'auto', margin: 0 }}
+                                            />
+                                            <label htmlFor="isExpensive" style={{ margin: 0 }}>💰 Mark as Expensive (High-value payment)</label>
                                         </div>
                                         <button type="submit" className="btn btn-success">
                                             {editingPayment ? '💾 Update Payment' : '✅ Record Payment'}
@@ -259,40 +305,76 @@ export default function PaymentsPage() {
                             ) : (
                                 payments.map(payment => (
                                     <div key={payment.id} className="payment-item" style={{
-                                        padding: '1.2rem',
+                                        padding: '1.5rem',
                                         borderBottom: '1px solid var(--border-color)',
                                         display: 'flex',
                                         justifyContent: 'space-between',
-                                        alignItems: 'center',
+                                        alignItems: 'flex-start',
                                         transition: 'all 0.3s ease',
-                                        borderLeft: '4px solid var(--secondary-color)',
-                                        background: 'white',
-                                        borderRadius: '8px',
-                                        marginBottom: '0.8rem'
+                                        borderLeft: `5px solid ${payment.is_expensive ? '#ff6b6b' : 'var(--secondary-color)'}`,
+                                        background: payment.is_expensive ? 'linear-gradient(135deg, #fff5f5 0%, #ffffff 100%)' : 'white',
+                                        borderRadius: '12px',
+                                        marginBottom: '1rem',
+                                        boxShadow: payment.is_expensive ? '0 4px 15px rgba(255, 107, 107, 0.15)' : '0 2px 8px rgba(0,0,0,0.05)'
                                     }}>
                                         <div className="payment-info" style={{ flex: 1 }}>
-                                            <div style={{ fontWeight: 'bold', fontSize: '1.05rem' }}>
-                                                {payment.from_user} <span style={{ color: 'var(--text-secondary)', fontWeight: 'normal' }}>paid</span> {payment.to_user}
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                                                <div style={{ fontWeight: 'bold', fontSize: '1.15rem' }}>
+                                                    {payment.from_user} <span style={{ color: 'var(--text-secondary)', fontWeight: 'normal' }}>paid</span> {payment.to_user}
+                                                </div>
+                                                {payment.is_expensive && (
+                                                    <span style={{
+                                                        background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)',
+                                                        color: 'white',
+                                                        padding: '0.25rem 0.75rem',
+                                                        borderRadius: '20px',
+                                                        fontSize: '0.75rem',
+                                                        fontWeight: '700',
+                                                        boxShadow: '0 2px 8px rgba(255, 107, 107, 0.3)'
+                                                    }}>
+                                                        💰 EXPENSIVE
+                                                    </span>
+                                                )}
                                             </div>
-                                            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>
+                                            
+                                            {payment.category && (
+                                                <div style={{ 
+                                                    display: 'inline-block',
+                                                    fontSize: '0.9rem', 
+                                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                    color: 'white',
+                                                    padding: '0.4rem 0.9rem',
+                                                    borderRadius: '20px',
+                                                    marginTop: '0.5rem',
+                                                    fontWeight: '600',
+                                                    boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
+                                                }}>
+                                                    {payment.category}
+                                                </div>
+                                            )}
+                                            
+                                            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                 📅 {new Date(payment.date).toLocaleDateString('en-US', { 
+                                                    weekday: 'short',
                                                     day: 'numeric',
                                                     month: 'short', 
                                                     year: 'numeric' 
                                                 })}
                                             </div>
+                                            
                                             {payment.note && (
                                                 <div style={{ 
-                                                    fontSize: '0.9rem', 
-                                                    color: 'var(--text-secondary)', 
-                                                    fontStyle: 'italic',
-                                                    marginTop: '0.5rem',
-                                                    padding: '0.5rem',
-                                                    background: '#f8f9fa',
-                                                    borderRadius: '8px',
-                                                    borderLeft: '3px solid var(--primary-color)'
+                                                    fontSize: '0.95rem', 
+                                                    color: '#2c3e50', 
+                                                    marginTop: '0.8rem',
+                                                    padding: '0.8rem 1rem',
+                                                    background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+                                                    borderRadius: '10px',
+                                                    borderLeft: '4px solid #667eea',
+                                                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
                                                 }}>
-                                                    📝 {payment.note}
+                                                    <div style={{ fontWeight: '600', fontSize: '0.8rem', color: '#667eea', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>📝 Payment Details:</div>
+                                                    {payment.note}
                                                 </div>
                                             )}
                                         </div>

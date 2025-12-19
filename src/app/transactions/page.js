@@ -71,6 +71,8 @@ export default function TransactionsPage() {
                 from: payment.from_user,
                 to: payment.to_user,
                 note: payment.note,
+                category: payment.category,
+                isExpensive: payment.is_expensive,
                 settled: true, // Payments are always settled
                 originalId: payment.id,
                 fullData: payment
@@ -463,7 +465,7 @@ export default function TransactionsPage() {
                                                 )}
 
                                                 {transaction.type === 'payment' && (
-                                                    <div style={{ marginTop: '1rem' }}>
+                                                    <div style={{ marginTop: '1rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                                                         <div style={{
                                                             padding: '0.8rem',
                                                             background: '#f5f5f5',
@@ -471,23 +473,56 @@ export default function TransactionsPage() {
                                                             fontSize: '0.95rem',
                                                             display: 'flex',
                                                             alignItems: 'center',
-                                                            gap: '0.5rem'
+                                                            gap: '0.5rem',
+                                                            flex: '1 1 auto'
                                                         }}>
                                                             <strong>{transaction.from}</strong> 
                                                             <span style={{ color: 'var(--text-secondary)' }}>→</span> 
                                                             <strong>{transaction.to}</strong>
                                                         </div>
+                                                        {transaction.category && (
+                                                            <div style={{
+                                                                padding: '0.8rem 1rem',
+                                                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                                color: 'white',
+                                                                borderRadius: '8px',
+                                                                fontSize: '0.9rem',
+                                                                fontWeight: '600',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '0.3rem'
+                                                            }}>
+                                                                {transaction.category}
+                                                            </div>
+                                                        )}
+                                                        {transaction.isExpensive && (
+                                                            <div style={{
+                                                                padding: '0.8rem 1rem',
+                                                                background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)',
+                                                                color: 'white',
+                                                                borderRadius: '8px',
+                                                                fontSize: '0.9rem',
+                                                                fontWeight: '700',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '0.3rem'
+                                                            }}>
+                                                                💰 EXPENSIVE
+                                                            </div>
+                                                        )}
                                                         {transaction.note && (
                                                             <div style={{
                                                                 marginTop: '0.5rem',
-                                                                padding: '0.5rem',
-                                                                background: '#f0f7ff',
-                                                                borderRadius: '8px',
-                                                                fontSize: '0.85rem',
-                                                                fontStyle: 'italic',
-                                                                borderLeft: '3px solid #2196f3'
+                                                                padding: '0.8rem 1rem',
+                                                                background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+                                                                borderRadius: '10px',
+                                                                fontSize: '0.9rem',
+                                                                borderLeft: '4px solid #667eea',
+                                                                width: '100%',
+                                                                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
                                                             }}>
-                                                                📝 {transaction.note}
+                                                                <div style={{ fontWeight: '600', fontSize: '0.75rem', color: '#667eea', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>📝 Payment Details:</div>
+                                                                {transaction.note}
                                                             </div>
                                                         )}
                                                     </div>

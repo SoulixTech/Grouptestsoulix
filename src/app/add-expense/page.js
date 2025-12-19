@@ -86,7 +86,8 @@ export default function AddExpensePage() {
         date: new Date().toISOString().split('T')[0],
         notes: '',
         splitType: 'equal',
-        involved: []
+        involved: [],
+        isExpensive: false
     })
 
     useEffect(() => {
@@ -128,7 +129,8 @@ export default function AddExpensePage() {
                 notes: formData.notes,
                 split_type: formData.splitType,
                 involved: formData.involved,
-                split_details: null // Simplified for now, can be enhanced later
+                split_details: null, // Simplified for now, can be enhanced later
+                is_expensive: formData.isExpensive || false
             }
 
             const { error } = await supabase
@@ -154,6 +156,17 @@ export default function AddExpensePage() {
 
     const handleCheckboxChange = (memberName) => {
         setFormData(prev => {
+            // If Reimbursement category, only allow one person
+            if (prev.category === 'Reimbursement') {
+                // If clicking the same person, uncheck them
+                if (prev.involved.includes(memberName)) {
+                    return { ...prev, involved: [] }
+                }
+                // Otherwise, replace with this person only
+                return { ...prev, involved: [memberName] }
+            }
+            
+            // For other categories, allow multiple selections
             const newInvolved = prev.involved.includes(memberName)
                 ? prev.involved.filter(m => m !== memberName)
                 : [...prev.involved, memberName]
@@ -212,6 +225,8 @@ export default function AddExpensePage() {
                                             value={formData.category}
                                             onChange={e => setFormData({ ...formData, category: e.target.value })}
                                         >
+                                            <option value="Event Ticket">🎫 Event Ticket</option>
+                                            <option value="Reimbursement">💰 Reimbursement (Paid on behalf)</option>
                                             <option value="Food & Drinks">🍔 Food & Drinks</option>
                                             <option value="Transportation">🚗 Transportation</option>
                                             <option value="Entertainment">🎉 Entertainment</option>
@@ -263,7 +278,25 @@ export default function AddExpensePage() {
                                 </div>
 
                                 <div className="form-group">
-                                    <label>Split Between</label>
+                                    <label>
+                                        {formData.category === 'Reimbursement' ? 'Who Owes You (Select One Person)' : 'Split Between'}
+                                    </label>
+                                    {formData.category === 'Reimbursement' && (
+                                        <div style={{
+                                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                            color: 'white',
+                                            padding: '0.75rem 1rem',
+                                            borderRadius: '8px',
+                                            fontSize: '0.9rem',
+                                            marginBottom: '10px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem'
+                                        }}>
+                                            <span style={{ fontSize: '1.2rem' }}>💡</span>
+                                            <span>For reimbursement: Select ONE person who will pay you the FULL amount</span>
+                                        </div>
+                                    )}
                                     <div className="split-members-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '10px', marginTop: '10px' }}>
                                         {members.map(member => (
                                             <div key={member.id} className="checkbox-wrapper">
@@ -290,6 +323,20 @@ export default function AddExpensePage() {
                                         value={formData.notes}
                                         onChange={e => setFormData({ ...formData, notes: e.target.value })}
                                     ></textarea>
+                                </div>
+
+                                <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
+                                    <input
+                                        type="checkbox"
+                                        id="isExpensive"
+                                        checked={formData.isExpensive}
+                                        disabled={!isAdmin}
+                                        onChange={e => setFormData({ ...formData, isExpensive: e.target.checked })}
+                                        style={{ width: 'auto', margin: 0 }}
+                                    />
+                                    <label htmlFor="isExpensive" style={{ margin: 0, cursor: isAdmin ? 'pointer' : 'not-allowed' }}>
+                                        💰 Mark as Expensive (High-value expense)
+                                    </label>
                                 </div>
 
                                 <button type="submit" className="btn btn-success btn-large" disabled={loading || !isAdmin}>
